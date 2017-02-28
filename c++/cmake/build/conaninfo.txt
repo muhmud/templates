@@ -1,0 +1,71 @@
+[settings]
+    arch=x86_64
+    build_type=Release
+    compiler=gcc
+    compiler.libcxx=libstdc++
+    compiler.version=5.4
+    os=Linux
+
+[requires]
+    Boost/1.Y.Z
+    jsoncpp/1.Y.Z
+
+[options]
+
+
+[full_settings]
+    arch=x86_64
+    build_type=Release
+    compiler=gcc
+    compiler.libcxx=libstdc++
+    compiler.version=5.4
+    os=Linux
+
+[full_requires]
+    Boost/1.60.0@lasote/stable:fd66e0d7c54c5138b787d9463eec30d3caf421cc
+    bzip2/1.0.6@lasote/stable:d280c6ed59dd8c0182cbb7cdd2ea08d0b573fb99
+    jsoncpp/1.7.5@theirix/ci:81607951755e61cf17149d40bed6aba5b3a079a9
+    zlib/1.2.8@lasote/stable:500a5737cfb7bee13d4a0039e72446892ca242ab
+
+[full_options]
+    Boost:fPIC=False
+    Boost:header_only=False
+    Boost:python=False
+    Boost:shared=False
+    Boost:without_atomic=False
+    Boost:without_chrono=False
+    Boost:without_container=False
+    Boost:without_context=False
+    Boost:without_coroutine=False
+    Boost:without_coroutine2=False
+    Boost:without_date_time=False
+    Boost:without_exception=False
+    Boost:without_filesystem=False
+    Boost:without_graph=False
+    Boost:without_graph_parallel=False
+    Boost:without_iostreams=False
+    Boost:without_locale=False
+    Boost:without_log=False
+    Boost:without_math=False
+    Boost:without_mpi=False
+    Boost:without_program_options=False
+    Boost:without_random=False
+    Boost:without_regex=False
+    Boost:without_serialization=False
+    Boost:without_signals=False
+    Boost:without_system=False
+    Boost:without_test=False
+    Boost:without_thread=False
+    Boost:without_timer=False
+    Boost:without_type_erasure=False
+    Boost:without_wave=False
+    bzip2:fPIC=True
+    bzip2:shared=False
+    jsoncpp:shared=False
+    zlib:shared=False
+
+[scope]
+    dev=True
+
+[recipe_hash]
+None

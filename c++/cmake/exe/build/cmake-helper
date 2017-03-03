@@ -26,41 +26,62 @@ def fixEclipseProject():
     return
 
 commands = {
-    'default' : ['cmake', '../project'],
-
-    'conan' : ['conan', 'install', '../project'],
+    'cmake' : { 'description': 'Runs cmake on the project with default options', 'execute' : ['cmake', '../project'] },
     
-    'debug': ['cmake', '-DCMAKE_BUILD_TYPE=Debug', '../project'],
+    'conan' : { 'description': 'Performs a conan install', 'execute' : ['conan', 'install', '../project'] },
     
-    'release': ['cmake', '-DCMAKE_BUILD_TYPE=Release', '../project'],
+    'debug': { 'description': 'Runs cmake on the project for a debug build', 'execute' : ['cmake', '-DCMAKE_BUILD_TYPE=Debug', '../project'] },
     
-    'eclipse': ['cmake', '-G',
+    'release': { 'description' : 'Runs cmake on the project for a release build', 'execute' : ['cmake', '-DCMAKE_BUILD_TYPE=Release', '../project'] },
+    
+    'eclipse': { 'description': 'Creates an eclipse project for the build', 'execute' : ['cmake', '-G',
                          'Eclipse CDT4 - Unix Makefiles',
                          '-DCMAKE_BUILD_TYPE=Debug',
-                         '../project'],
+                         '../project'] },
     
-    'eclipse-src': ['cmake', '-G',
+    'eclipse-src': { 'description' : 'Creates an eclipse project for the source', 'execute' : ['cmake', '-G',
                          'Eclipse CDT4 - Unix Makefiles',
                          '-DCMAKE_BUILD_TYPE=Debug',
                          '-DCMAKE_ECLIPSE_GENERATE_SOURCE_PROJECT=TRUE',
-                         '../project'],
+                         '../project'] },
 
-    'clean': ['find', '.', '!', '-name', 'cmake-helper', '-not', '-name', '.',
+    'clean': { 'description' : 'Cleans all build files', 'execute' : ['find', '.', '!', '-name', 'cmake-helper', '-not', '-name', '.',
               '-not', '-name', '..', '-not', '-name', '.eclipse-filters.xml',
-              '-exec', 'rm', '-rf', '{}', '+']
+              '-exec', 'rm', '-rf', '{}', '+'] }
 }
 
+def executeCommand(command):
+    subprocess.call(commands[command]['execute'])
+    
+
 if len(sys.argv) <= 1:
-    subprocess.call(commands['default'])
+    # Clean
+    executeCommand('clean')
+
+    # Conan install
+    executeCommand('conan')
+
+    # CMake (debug)
+    executeCommand('debug')
+
+    # Eclipse
+    executeCommand('eclipse')
+
     exit()
 
 command = sys.argv[1];
+if command == 'help':
+    for command, data in commands.items():
+        print('%s    \t%s' % (command, data['description']))
+
+    exit()
+
 if not command in commands:
     print('Bad argument(s)')
     exit()
 
 # We have a valid command
-subprocess.call(commands[command])
+executeCommand(command)
 
 # Fix Eclipse project xml, if necessary
 if command == 'eclipse':

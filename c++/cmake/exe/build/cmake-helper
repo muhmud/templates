@@ -28,6 +28,11 @@ def fixEclipseProject():
     
     return
 
+def writeDirLocals():
+    dirLocalsFile = os.path.join(os.path.join(buildDirectory, os.pardir), '.dir-locals.el')
+    with open(dirLocalsFile, 'w') as f:
+        f.write('((c++-mode (cmake-ide-build-dir . "' + currentDirectory + '")))')
+
 def clearDirectory(path):
     for item in os.listdir(path):
         if os.path.isdir(item):
@@ -66,8 +71,11 @@ def executeCommand(command):
 
         subprocess.call(commands[command]['execute'])
 
-        # Fix Eclipse project xml, if necessary
-        if command == 'eclipse':
+        # If cmake was executed, re-create .dir-locals.el
+        if command == 'cmake':
+            writeDirLocals()
+        elif command == 'eclipse':
+            # Fix Eclipse project xml, if necessary
             fixEclipseProject()
 
 if currentDirectory == os.path.join(buildDirectory, 'debug'):

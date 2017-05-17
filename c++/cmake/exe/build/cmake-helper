@@ -31,7 +31,7 @@ def fixEclipseProject():
 def writeDirLocals():
     dirLocalsFile = os.path.join(os.path.join(buildDirectory, os.pardir), '.dir-locals.el')
     with open(dirLocalsFile, 'w') as f:
-        f.write('((c++-mode (cmake-ide-build-dir . "' + currentDirectory + '")))')
+        f.write('((nil . ((cmake-ide-build-dir . "../build/' + buildType.lower() + '"))))')
 
 def clearDirectory(path):
     for item in os.listdir(path):

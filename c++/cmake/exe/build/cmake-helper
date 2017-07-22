@@ -38,7 +38,8 @@ def clearDirectory(path):
         if os.path.isdir(item):
             shutil.rmtree(item)
         else:
-            os.remove(item)
+            if item != ".gitignore":
+                os.remove(item)
 
 commands = {
     'cmake': { 'description': 'Runs cmake on the project for a debug build', 'execute' : ['cmake', '-DCMAKE_BUILD_TYPE=', '../../project'] },

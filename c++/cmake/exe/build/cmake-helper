@@ -94,7 +94,8 @@ if len(sys.argv) <= 1:
     executeCommand('clean')
 
     # Conan install
-    executeCommand('conan')
+    if (os.path.exists(os.path.join(buildDirectory, '../../project/conanfile.txt'))):
+        executeCommand('conan')
 
     # CMake (debug)
     executeCommand('cmake')
